@@ -1,0 +1,15 @@
+---
+
+- include: unix-mkdir.yml
+
+#- include: debian.yml
+#  when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu')
+
+- include: redhat-epel.yml
+  when: ansible_os_family == "RedHat" or ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+- include: sysdig.yml
+  when: ansible_system == 'Linux'
+  tags:
+    - system
+    - sysdig

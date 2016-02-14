@@ -1,0 +1,46 @@
+---
+
+- name: apt | Enable backports
+  replace:
+    dest='/etc/apt/sources.list' regexp='^# deb http://(.*)/ubuntu([/]*) trusty-backports' replace='deb http://\1/ubuntu\2 trusty-backports' backup=yes
+  when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu') and (do_install is defined and do_install)
+- name: apt | Extra packages install
+  apt: name={{item}} state=present update_cache=yes
+  with_items:
+    - sysdig
+    - "linux-headers-{{ ansible_kernel }}"
+  when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu') and (do_install is defined and do_install)
+
+- name: yum | install draios repository key
+  rpm_key: state=present key=https://s3.amazonaws.com/download.draios.com/DRAIOS-GPG-KEY.public
+  when: (do_install is defined and do_install) and (ansible_os_family == "RedHat" or ansible_distribution == 'CentOS')  
+- name: yum | install draios repository
+  get_url: url=http://download.draios.com/stable/rpm/draios.repo dest=/etc/yum.repos.d/draios.repo mode=0644
+  when: (do_install is defined and do_install) and (ansible_os_family == "RedHat" or ansible_distribution == 'CentOS')  
+
+- name: yum | Extra packages install
+  yum: name={{item}} state=present update_cache=yes
+  with_items:
+    - epel-release
+  when: (do_install is defined and do_install) and (ansible_os_family == "RedHat" or ansible_distribution == 'CentOS')  
+
+- name: yum | Extra packages install
+  yum: name={{item}} state=present update_cache=yes
+  with_items:
+    - dkms
+    - kernel-devel
+    - sysdig
+  when: (do_install is defined and do_install) and (ansible_os_family == "RedHat" or ansible_distribution == 'CentOS')  
+
+- name: ensure sysdig kernel module loaded
+  modprobe: name=sysdig-probe state=present
+
+- stat: path={{ dst_path }}/{{ prefix }}-sysdig.scap
+  register: scap
+
+- name: Sysdig capture
+## this commit is still not in package...
+#  shell: "sysdig -G {{ capture_length }} -w {{ dst_path }}/{{ prefix }}-sysdig.scap"
+  shell: "sysdig -n {{ capture_numevent }} -w {{ dst_path }}/{{ prefix }}-sysdig.scap"
+  when: not scap.stat.exists
+
