@@ -1,0 +1,24 @@
+---
+
+#- name: apt | Enable backports - replace
+#  replace:
+#    dest='/etc/apt/sources.list' regexp='^# deb http://(.*)/ubuntu([/]*) trusty-backports' replace='deb http://\1/ubuntu\2 trusty-backports' backup=yes
+#  when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu') and (do_install is defined and do_install)
+#- name: apt | Enable backports - lineinfile
+#  lineinfile:
+#    dest='/etc/apt/sources.list' regexp='^deb http://(.*)/ubuntu([/]*) trusty-backports' line='deb http://us.archive.ubuntu.com/ubuntu/ trusty-backports main restricted universe multiverse' backup=yes
+#  when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu') and (do_install is defined and do_install)
+#- command: "cat /etc/apt/sources.list"
+
+- name: add draios key
+  apt_key: url=https://s3.amazonaws.com/download.draios.com/DRAIOS-GPG-KEY.public state=present
+- name: install draios apt source
+  get_url: url=http://download.draios.com/stable/deb/draios.list dest=/etc/apt/sources.list.d/draios.list mode=0440
+## FIXME! add sha256
+
+- name: apt | Extra packages install
+  apt: name={{item}} state=present update_cache=yes
+  with_items:
+    - sysdig
+    - "linux-headers-{{ ansible_kernel }}"
+

@@ -6,7 +6,13 @@
 #  when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu')
 
 - include: redhat-epel.yml
-  when: ansible_os_family == "RedHat" or ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  when: (ansible_os_family == "RedHat" or ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux') and (do_install is defined and do_install)
+
+- include: debian.yml
+  when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu') and (do_install is defined and do_install)
+
+- include: redhat.yml
+  when: (ansible_os_family == "RedHat" or ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux') and (do_install is defined and do_install)
 
 - include: sysdig.yml
   when: ansible_system == 'Linux'
