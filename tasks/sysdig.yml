@@ -1,9 +1,16 @@
 ---
 
-- name: apt | Enable backports
+- name: apt | Enable backports - replace
   replace:
     dest='/etc/apt/sources.list' regexp='^# deb http://(.*)/ubuntu([/]*) trusty-backports' replace='deb http://\1/ubuntu\2 trusty-backports' backup=yes
   when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu') and (do_install is defined and do_install)
+- name: apt | Enable backports - lineinfile
+  lineinfile:
+    dest='/etc/apt/sources.list' regexp='^deb http://(.*)/ubuntu([/]*) trusty-backports' line='deb http://us.archive.ubuntu.com/ubuntu/ trusty-backports main restricted universe multiverse' backup=yes
+  when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu') and (do_install is defined and do_install)
+
+- command: "cat /etc/apt/sources.list"
+
 - name: apt | Extra packages install
   apt: name={{item}} state=present update_cache=yes
   with_items:
@@ -34,6 +41,7 @@
 
 - name: ensure sysdig kernel module loaded
   modprobe: name=sysdig-probe state=present
+  ignore_errors: true
 
 - stat: path={{ dst_path }}/{{ prefix }}-sysdig.scap
   register: scap
