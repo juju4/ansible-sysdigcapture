@@ -45,14 +45,14 @@ script:
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible --version'
 
   # Ansible syntax check.
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/sysdigcapture/test/integration/default/default.yml --syntax-check'
+  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/sysdigcapture/test/integration/default/travis.yml --syntax-check'
 
   # Test role.
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook -e sysdig_capture=false /etc/ansible/roles/sysdigcapture/test/integration/default/default.yml'
+  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/sysdigcapture/test/integration/default/travis.yml'
 
   # Test role idempotence.
   - >
-    sudo docker exec "$(cat ${container_id})" ansible-playbook -e sysdig_capture=false /etc/ansible/roles/sysdigcapture/test/integration/default/default.yml
+    sudo docker exec "$(cat ${container_id})" ansible-playbook /etc/ansible/roles/sysdigcapture/test/integration/default/travis.yml
     | tee /tmp/idempotency.log
     | grep -q 'changed=0.*failed=0'
     && (echo 'Idempotence test: pass' && exit 0)

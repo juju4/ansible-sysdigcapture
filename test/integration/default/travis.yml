@@ -1,0 +1,8 @@
+---
+
+- hosts: all
+  vars:
+    sysdig_capture: false
+  roles:
+    - sysdigcapture
+
