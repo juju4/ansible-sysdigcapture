@@ -56,10 +56,11 @@ bin_path: "/tmp/ir-bin"
 
 ## Continuous integration
 
-you can test this role with test kitchen.
-In the role folder, run
+you can test this role with test kitchen or travis.
 ```
+$ cd /path/to/roles/myrole
 $ kitchen verify
+$ kitchen login
 ```
 
 Known bugs
@@ -69,17 +70,19 @@ $ rpm -qa|grep kernel-headers; uname -a; ls -l /lib/modules/*/build
 ```
 You would need either to fix build symlink, either to upgrade system and reboot which does not seem supported by kitchen
 ```
-$ sudo ln -sf /usr/src/kernels/2.6.32-573.18.1.el6.x86_64 /lib/modules/2.6.32-573.el6.x86_64/build
+$ sudo ln -sf /usr/src/kernels/x.y.z-573.18.1.el6.x86_64 /lib/modules/x.y.z-573.el6.x86_64/build
 ## OR
-$ sudo yum upgrade
+$ sudo yum -y upgrade kernel
 $ sudo reboot
 ```
 https://github.com/test-kitchen/test-kitchen/issues/324
-If you manually do, once header and kernel are aligned
+Once header and kernel are aligned, may need to re-compile modules manually
 ```
 $ sudo /usr/lib/dkms/dkms_autoinstaller start
 ```
-and 'verify' should work fine
+and 'kitchen verify' should work fine
+* Travis CI is not testing execution as there is no kernel modules support
+https://github.com/travis-ci/travis-ci/issues/2291
 
 
 ## Troubleshooting & Known issues

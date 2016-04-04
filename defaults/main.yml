@@ -14,10 +14,12 @@ dst_path: "{{ dst_mount }}/{{ prefix }}-incidentreport"
 #dst_path: network_mount
 #dst_path: netcat
 
-do_install: true
+sysdig_install: true
 
+sysdig_capture: true
 ## for sysdig & tcpdump (sec)
-capture_length: 30
+#sysdig_capture_length: 30
 # or number of event for old sysdig without duration setting
-capture_numevent: 10000
+sysdig_capture_numevent: 10000
+sysdig_capturefile: "{{ dst_path }}/{{ prefix }}-sysdig.scap"
 

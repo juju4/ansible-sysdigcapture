@@ -20,8 +20,8 @@ provisioner:
 #  name: chef_solo
 
 platforms:
-## https://bugs.launchpad.net/ubuntu/+source/sysdig/+bug/1419402
-#  - name: ubuntu-14.04
+## https://bugs.launchpad.net/ubuntu/+source/sysdig/+bug/1419402 (fixed)
+  - name: ubuntu-14.04
 ## Not available
 #  - name: ubuntu-12.04
   - name: centos-7.1

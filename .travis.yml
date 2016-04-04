@@ -30,6 +30,10 @@ before_install:
   - env
   - pwd
   - find -ls
+## No kernel modules/headers: https://github.com/travis-ci/travis-ci/issues/2291 = sysdig_capture = false
+  - uname -a
+  - find /lib/modules/ -maxdepth 2 -name build
+#  - 'sudo apt-get -y install linux-headers-$(uname -r)'
   # Customize container
   - 'sudo docker build --rm=true --file=test/travis/Dockerfile.${distribution}-${version} --tag=${distribution}-${version}:ansible test'
 
@@ -44,16 +48,17 @@ script:
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/sysdigcapture/test/integration/default/default.yml --syntax-check'
 
   # Test role.
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/sysdigcapture/test/integration/default/default.yml'
+  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook -e sysdig_capture=false /etc/ansible/roles/sysdigcapture/test/integration/default/default.yml'
 
   # Test role idempotence.
   - >
-    sudo docker exec "$(cat ${container_id})" ansible-playbook /etc/ansible/roles/sysdigcapture/test/integration/default/default.yml
+    sudo docker exec "$(cat ${container_id})" ansible-playbook -e sysdig_capture=false /etc/ansible/roles/sysdigcapture/test/integration/default/default.yml
     | tee /tmp/idempotency.log
     | grep -q 'changed=0.*failed=0'
     && (echo 'Idempotence test: pass' && exit 0)
-    || (echo 'Idempotence test: fail' && exit 1)
-  - 'sudo docker exec "$(cat ${container_id})" cat /tmp/idempotency.log'
+    || (echo 'Idempotence test: fail' && cat /tmp/idempotency.log && exit 1)
+
+  - 'sudo docker exec --tty "$(cat ${container_id})" ls -l /usr/bin/sysdig'
 
   # Clean up
   - 'sudo docker stop "$(cat ${container_id})"'
