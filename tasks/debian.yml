@@ -16,9 +16,14 @@
   get_url: url=http://download.draios.com/stable/deb/draios.list dest=/etc/apt/sources.list.d/draios.list mode=0440
 ## FIXME! add sha256
 
-- name: apt | Extra packages install
+- name: apt | sysdig install
   apt: name={{item}} state=present update_cache=yes
   with_items:
     - sysdig
+
+- name: apt | kernel headers install
+  apt: name={{item}} state=present
+  with_items:
     - "linux-headers-{{ ansible_kernel }}"
+  ignore_errors: true
 
