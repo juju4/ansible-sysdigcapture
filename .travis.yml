@@ -12,6 +12,10 @@ env:
     init: /usr/lib/systemd/systemd
     run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
   - distribution: ubuntu
+    version: 16.04
+    init: /lib/systemd/systemd
+    run_opts: ""
+  - distribution: ubuntu
     version: 14.04
     init: /sbin/init
     run_opts: ""
@@ -19,6 +23,10 @@ env:
     version: 12.04
     init: /sbin/init
     run_opts: ""
+#  - distribution: alpine
+#    version: 3.4
+#    init: /sbin/init
+#    run_opts: ""
 
 services:
   - docker
@@ -30,6 +38,9 @@ before_install:
   - env
   - pwd
   - find -ls
+  - ln -s ansible-sysdigcapture ../sysdigcapture
+  - ./get-dependencies.sh
+  - cp test/travis/initctl_faker test/
 ## No kernel modules/headers: https://github.com/travis-ci/travis-ci/issues/2291 = sysdig_capture = false
   - uname -a
   - find /lib/modules/ -maxdepth 2 -name build
@@ -40,7 +51,7 @@ before_install:
 script:
   - container_id=$(mktemp)
     # Run container in detached state
-  - 'sudo docker run --detach --volume="${PWD}":/etc/ansible/roles/sysdigcapture:ro ${run_opts} ${distribution}-${version}:ansible "${init}" > "${container_id}"'
+  - 'sudo docker run --detach --volume="${PWD%/*}":/etc/ansible/roles:ro ${run_opts} ${distribution}-${version}:ansible "${init}" > "${container_id}"'
 
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible --version'
 

@@ -90,6 +90,9 @@ https://github.com/travis-ci/travis-ci/issues/2291
 * compilation issue on Ubuntu 14.04
 https://bugs.launchpad.net/ubuntu/+source/sysdig/+bug/1419402
 https://github.com/draios/sysdig/issues/30
+* Not possible to run it inside containers
+https://github.com/draios/sysdig/issues/152
+
 
 ## License
 
