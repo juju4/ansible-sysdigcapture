@@ -19,8 +19,6 @@ galaxy_info:
     - precise
     - trusty
     - xenial
-  - name: Debian
-    versions:
   #
   # Below are all categories currently available. Just as with
   # the platforms above, uncomment those that apply to your role.
@@ -30,5 +28,5 @@ galaxy_info:
   - system
   - security
 dependencies:
-  - redhat-epel
+  - juju4.redhat-epel
 
