@@ -4,5 +4,5 @@
   vars:
     sysdig_capture: false
   roles:
-    - sysdigcapture
+    - juju4.sysdigcapture
 
