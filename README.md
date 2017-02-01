@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/juju4/ansible-sysdigcapture.svg?branch=master)](https://travis-ci.org/juju4/ansible-sysdigcapture)
+[![Build Status - Master](https://travis-ci.org/juju4/ansible-sysdigcapture.svg?branch=master)](https://travis-ci.org/juju4/ansible-sysdigcapture)
+[![Build Status - Devel](https://travis-ci.org/juju4/ansible-sysdigcapture.svg?branch=devel)](https://travis-ci.org/juju4/ansible-sysdigcapture/branches)
 # Sysdig capture ansible role
 
 A simple ansible role to install and execute sysdig.
@@ -11,6 +12,7 @@ http://www.sysdig.org/
 It was tested on the following versions:
  * 1.9
  * 2.0
+ * 2.2
 
 ### Operating systems
 
@@ -25,7 +27,7 @@ For example
 ```
 - host: myhost
   roles:
-    - sysdigcapture
+    - juju4.sysdigcapture
 ```
 
 you probably want to review variables
@@ -58,7 +60,7 @@ bin_path: "/tmp/ir-bin"
 
 you can test this role with test kitchen or travis.
 ```
-$ cd /path/to/roles/myrole
+$ cd /path/to/roles/juju4.sysdigcapture
 $ kitchen verify
 $ kitchen login
 ```
