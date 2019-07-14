@@ -5,4 +5,3 @@
     sysdig_capture: true
   roles:
     - juju4.sysdigcapture
-

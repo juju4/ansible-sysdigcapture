@@ -6,10 +6,11 @@
   get_url: url=http://download.draios.com/stable/rpm/draios.repo dest=/etc/yum.repos.d/draios.repo mode=0644
 
 - name: yum | sysdig install
-  yum: name={{item}} state=present update_cache=yes
-  with_items:
-    - dkms
-    - kernel-devel
-#    - "kernel-devel-{{ ansible_kernel }}"
-    - sysdig
-
+  yum:
+    name:
+      - dkms
+      - kernel-devel
+#      - "kernel-devel-{{ ansible_kernel }}"
+      - sysdig
+    state: present
+    update_cache: yes

@@ -3,10 +3,14 @@
 - include: unix-mkdir.yml
 
 - include: debian.yml
-  when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu') and (sysdig_install is defined and sysdig_install)
+  when: >
+    (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu') and
+    (sysdig_install is defined and sysdig_install)
 
 - include: redhat.yml
-  when: (ansible_os_family == "RedHat" or ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux') and (sysdig_install is defined and sysdig_install)
+  when: >
+    (ansible_os_family == "RedHat") and
+    (sysdig_install is defined and sysdig_install)
 
 - include: sysdig.yml
   when: ansible_system == 'Linux' and sysdig_capture is defined and sysdig_capture

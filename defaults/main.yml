@@ -22,4 +22,3 @@ sysdig_capture: true
 # or number of event for old sysdig without duration setting
 sysdig_capture_numevent: 10000
 sysdig_capturefile: "{{ dst_path }}/{{ prefix }}-sysdig.scap"
-

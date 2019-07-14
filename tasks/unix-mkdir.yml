@@ -10,4 +10,3 @@
 
 - name: Ensure dst_path directory exists
   file: "path={{ dst_path }} state=directory mode=0755"
-

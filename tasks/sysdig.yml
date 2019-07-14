@@ -4,13 +4,13 @@
   modprobe: name=sysdig-probe state=present
   ignore_errors: true
 
-- stat: path={{ sysdig_capturefile }}
-  register: scap
-
 - name: Sysdig capture - length
   command: "sysdig -M {{ sysdig_capture_length }} -w {{ sysdig_capturefile }}"
-  when: not scap.stat.exists and sysdig_capture_length is defined
+  args:
+    creates: "{{ sysdig_capturefile }}"
+  when: sysdig_capture_length is defined
 - name: Sysdig capture - numevents
   command: "sysdig -n {{ sysdig_capture_numevent }} -w {{ sysdig_capturefile }}"
-  when: not scap.stat.exists and sysdig_capture_length is not defined
-
+  args:
+    creates: "{{ sysdig_capturefile }}"
+  when: sysdig_capture_length is not defined
