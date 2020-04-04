@@ -19,6 +19,11 @@
     mode: '0444'
     checksum: 'sha256:6905dcd6d297c4e3fc0df1a25679b1e15c4517e3fd5d197cea7840cc947436bd'
 
+- name: apt | ensure apt-transport-https is present
+  apt:
+    name: apt-transport-https
+    state: present
+
 - name: apt | sysdig install
   apt:
     name: sysdig
