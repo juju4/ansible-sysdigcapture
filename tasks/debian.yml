@@ -23,12 +23,12 @@
   apt:
     name: apt-transport-https
     state: present
+    update_cache: yes
 
 - name: apt | sysdig install
   apt:
     name: sysdig
     state: present
-    update_cache: yes
 
 - name: apt | kernel headers install
   apt:
