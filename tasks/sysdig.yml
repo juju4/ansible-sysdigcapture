@@ -2,7 +2,7 @@
 
 - name: ensure sysdig kernel module loaded
   modprobe: name=sysdig-probe state=present
-  ignore_errors: true
+  failed_when: false
 
 - name: Sysdig capture - length
   ansible.builtin.command: "sysdig -M {{ sysdig_capture_length }} -w {{ sysdig_capturefile }}"

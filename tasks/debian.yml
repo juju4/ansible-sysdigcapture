@@ -1,14 +1,14 @@
 ---
 
-#- name: apt | Enable backports - replace
-#  ansible.builtin.replace:
-#    dest='/etc/apt/sources.list' regexp='^# deb http://(.*)/ubuntu([/]*) trusty-backports' replace='deb http://\1/ubuntu\2 trusty-backports' backup=yes
-#  when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu') and (do_install is defined and do_install)
-#- name: apt | Enable backports - lineinfile
-#  ansible.builtin.lineinfile:
-#    dest='/etc/apt/sources.list' regexp='^deb http://(.*)/ubuntu([/]*) trusty-backports' line='deb http://us.archive.ubuntu.com/ubuntu/ trusty-backports main restricted universe multiverse' backup=yes
-#  when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu') and (do_install is defined and do_install)
-#- ansible.builtin.command: "cat /etc/apt/sources.list"
+# - name: apt | Enable backports - replace
+#   ansible.builtin.replace:
+#     dest='/etc/apt/sources.list' regexp='^# deb http://(.*)/ubuntu([/]*) trusty-backports' replace='deb http://\1/ubuntu\2 trusty-backports' backup=yes
+#   when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu') and (do_install is defined and do_install)
+# - name: apt | Enable backports - lineinfile
+#   ansible.builtin.lineinfile:
+#     dest='/etc/apt/sources.list' regexp='^deb http://(.*)/ubuntu([/]*) trusty-backports' line='deb http://us.archive.ubuntu.com/ubuntu/ trusty-backports main restricted universe multiverse' backup=yes
+#   when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu') and (do_install is defined and do_install)
+# - ansible.builtin.command: "cat /etc/apt/sources.list"
 
 - name: apt | ensure apt-transport-https is present
   ansible.builtin.apt:
@@ -34,4 +34,4 @@
   ansible.builtin.apt:
     name: "linux-headers-{{ ansible_kernel }}"
     state: present
-  ignore_errors: true
+  failed_when: false

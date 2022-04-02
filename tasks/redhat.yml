@@ -10,7 +10,7 @@
     name:
       - dkms
       - kernel-devel
-#      - "kernel-devel-{{ ansible_kernel }}"
+      # - "kernel-devel-{{ ansible_kernel }}"
       - sysdig
     state: present
     update_cache: yes
