@@ -1,5 +1,3 @@
-[![Build Status - Master](https://travis-ci.org/juju4/ansible-sysdigcapture.svg?branch=master)](https://travis-ci.org/juju4/ansible-sysdigcapture)
-[![Build Status - Devel](https://travis-ci.org/juju4/ansible-sysdigcapture.svg?branch=devel)](https://travis-ci.org/juju4/ansible-sysdigcapture/branches)
 # Sysdig capture ansible role
 
 A simple ansible role to install and execute sysdig.
