@@ -5,12 +5,12 @@
   ignore_errors: true
 
 - name: Sysdig capture - length
-  command: "sysdig -M {{ sysdig_capture_length }} -w {{ sysdig_capturefile }}"
+  ansible.builtin.command: "sysdig -M {{ sysdig_capture_length }} -w {{ sysdig_capturefile }}"
   args:
     creates: "{{ sysdig_capturefile }}"
   when: sysdig_capture_length is defined
 - name: Sysdig capture - numevents
-  command: "sysdig -n {{ sysdig_capture_numevent }} -w {{ sysdig_capturefile }}"
+  ansible.builtin.command: "sysdig -n {{ sysdig_capture_numevent }} -w {{ sysdig_capturefile }}"
   args:
     creates: "{{ sysdig_capturefile }}"
   when: sysdig_capture_length is not defined

@@ -2,11 +2,11 @@
 
 ## if those path are mounted network directory, the command will fail (existing or not)
 - name: Ensure dst_mount directory exists
-  file: "path={{ dst_mount }} state=directory mode=0755"
+  ansible.builtin.file: "path={{ dst_mount }} state=directory mode=0755"
   ignore_errors: true
 #- name: Ensure bin_path directory exists
-#  file: "path={{ bin_path }} state=directory mode=0755"
+#  ansible.builtin.file: "path={{ bin_path }} state=directory mode=0755"
 #  ignore_errors: true
 
 - name: Ensure dst_path directory exists
-  file: "path={{ dst_path }} state=directory mode=0755"
+  ansible.builtin.file: "path={{ dst_path }} state=directory mode=0755"
