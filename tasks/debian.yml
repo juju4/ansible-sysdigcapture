@@ -1,26 +1,26 @@
 ---
 
-- name: apt | ensure apt-transport-https is present
+- name: Debian | ensure apt-transport-https is present
   ansible.builtin.apt:
     name: apt-transport-https
     state: present
 
-- name: add draios key
+- name: Add draios key
   ansible.builtin.apt_key: url=https://s3.amazonaws.com/download.draios.com/DRAIOS-GPG-KEY.public state=present
-- name: install draios apt source
+- name: Install draios apt source
   ansible.builtin.get_url:
     url: http://download.draios.com/stable/deb/draios.list
     dest: /etc/apt/sources.list.d/draios.list
     mode: '0444'
     checksum: 'sha256:6905dcd6d297c4e3fc0df1a25679b1e15c4517e3fd5d197cea7840cc947436bd'
 
-- name: apt | sysdig install
+- name: Debian | sysdig install
   ansible.builtin.apt:
     name: sysdig
     state: present
     update_cache: yes
 
-- name: apt | kernel headers install
+- name: Debian | kernel headers install
   ansible.builtin.apt:
     name: "linux-headers-{{ ansible_kernel }}"
     state: present

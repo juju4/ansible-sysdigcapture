@@ -1,6 +1,6 @@
 ---
 
-- name: ensure sysdig kernel module loaded
+- name: Ensure sysdig kernel module loaded
   modprobe: name=sysdig-probe state=present
   failed_when: false
 
