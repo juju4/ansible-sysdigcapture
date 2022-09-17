@@ -16,5 +16,3 @@ end
 ### FIXME! undefined method `size' for #<Serverspec::Type::Command:0x00000002c09b38>
 ##  its(:size) { should > 0 }
 #end
-
-

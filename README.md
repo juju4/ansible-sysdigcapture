@@ -49,7 +49,7 @@ do_install: true
 bin_path: "/tmp/ir-bin"
 ```
 
-* bin_path: can be a network path or removable media. If local and 
+* bin_path: can be a network path or removable media. If local and
   download/build/install is enabled, the role will add everything necessary.
   Of course, from a forensic perspective, better if everything is setup either
   before locally (but can be altered) or a network read-only share
@@ -98,5 +98,3 @@ https://github.com/draios/sysdig/issues/152
 ## License
 
 BSD 2-clause
-
-
