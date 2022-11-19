@@ -4,7 +4,7 @@ galaxy_info:
   role_name: sysdigcapture
   description: Sysdig capture
   license: BSD
-  min_ansible_version: 1.9
+  min_ansible_version: '1.9'
   #
   # Below are all platforms currently available. Just uncomment
   # the ones that apply to your role. If you don't see your
@@ -28,4 +28,4 @@ galaxy_info:
     - system
     - security
 dependencies:
-  - juju4.redhat_epel
+  - role: juju4.redhat_epel

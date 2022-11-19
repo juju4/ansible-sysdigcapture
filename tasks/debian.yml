@@ -6,7 +6,8 @@
     state: present
 
 - name: Add draios key
-  ansible.builtin.apt_key: url=https://s3.amazonaws.com/download.draios.com/DRAIOS-GPG-KEY.public state=present
+  ansible.builtin.apt_key:
+    url: https://s3.amazonaws.com/download.draios.com/DRAIOS-GPG-KEY.public state=present
 - name: Install draios apt source
   ansible.builtin.get_url:
     url: http://download.draios.com/stable/deb/draios.list

@@ -1,7 +1,9 @@
 ---
 
 - name: Ensure sysdig kernel module loaded
-  modprobe: name=sysdig-probe state=present
+  community.general.modprobe:
+    name: sysdig-probe
+    state: present
   failed_when: false
 
 - name: Sysdig capture - length
