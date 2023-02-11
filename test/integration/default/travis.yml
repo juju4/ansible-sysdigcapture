@@ -1,6 +1,7 @@
 ---
 
-- hosts: all
+- name: Test role
+  hosts: all
   vars:
     sysdig_capture: false
   roles:
