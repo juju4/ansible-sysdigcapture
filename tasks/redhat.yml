@@ -11,7 +11,7 @@
     mode: 0644
 
 - name: Redhat | sysdig install
-  ansible.builtin.yum:
+  ansible.builtin.dnf:
     name:
       - dkms
       - kernel-devel
