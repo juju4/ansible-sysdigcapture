@@ -8,7 +8,7 @@
   ansible.builtin.get_url:
     url: http://download.draios.com/stable/rpm/draios.repo
     dest: /etc/yum.repos.d/draios.repo
-    mode: 0644
+    mode: '0644'
 
 - name: Redhat | sysdig install
   ansible.builtin.dnf:
